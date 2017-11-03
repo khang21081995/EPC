@@ -6,7 +6,8 @@
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var configGoogleServer = require('../google.server.config.json').google;
-
+var logger = require("../../logger");
+var flag = false;
 module.exports = function (User) {
 
     passport.serializeUser(function (user, done) {
@@ -33,6 +34,24 @@ module.exports = function (User) {
                             // console.log(profile);
                             profile.role = data.role;
                             profile.isBlock = data.isBlock;
+                            if(!data.name || data.name === ""){
+                                profile.name = profile.displayName;
+                                data.name = profile.displayName;
+                                flag = true;
+                            }else {
+                                profile.name = data.name;
+                            }
+
+                            if(flag){
+                                data.updatedAt = Date.now;
+                                data.save(function (err, newData) {
+                                    if (err) {
+                                        logger.error(err);
+                                    } else {
+                                        logger.info(data.username+": INIT UPDATE SUCCESS");
+                                    }
+                                });
+                            }
                             // profile.name = data.name;
                             return done(err, profile);
                         } else
