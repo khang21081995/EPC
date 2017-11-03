@@ -12,6 +12,8 @@ function renderview(pathToView,linkToView) {
     })
 }
 
+
+
 renderview("/","index.ejs");
 renderview("/hi","template/index.ejs");
 

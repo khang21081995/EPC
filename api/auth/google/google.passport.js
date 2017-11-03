@@ -25,7 +25,6 @@ module.exports = function (User) {
             // console.log('id : ' + profile.id);
             // console.log('name :' + profile.displayName);
             // console.log('emails :' + profile.emails[0].value.toLowerCase());
-
             User.findOne({username: profile.emails[0].value.toLowerCase()})
                 .exec(
                     function (err, data) {

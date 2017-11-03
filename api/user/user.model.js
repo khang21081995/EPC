@@ -25,7 +25,7 @@ var user = new Schema({
         type: String,
         require: true,
         // uppercase: true,
-        default:"Người Quản Lý",
+        default:"",
         trim:true
     },
     role: {
@@ -38,13 +38,20 @@ var user = new Schema({
         lowercase: true,
         require: true,
         trim:true
-
     },
     isBlock: {//true is the same as:  user is existed but have been block by admin and can' login to the system
         type: Boolean,
         default: false,
         require: true
     },
+    createdAt : { type: Date, required: true, default: Date.now },
+    joinTime : {type: Date},
+    img : {type:String,default:""},
+    about:{type:String,default:""},
+    updatedAt : { type: Date, required: false},
+    responsibility: {type:String,default:"Thành viên"},
+    dob: {type:Date},
+    gender: {type:Boolean,default:true}
     // nodes:[{type: Number, ref: "Node"}]
 });
 
