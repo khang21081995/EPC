@@ -16,7 +16,7 @@ module.exports = {
 
         // console.log(req.user.role);
         if (req.user && req.user.role) {
-            if (authConfig.userRoles.indexOf(req.user.role) == 0 || req.user.isBlock) {
+            if (req.user.isBlock) {
                 require('./google.controller').logout(req, res);
             } else {
                 if (req.isAuthenticated())

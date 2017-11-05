@@ -3,6 +3,5 @@
  */
 module.exports = {
     userRoles : ['member','manager','admin'],
-    domain: ["fpt.edu.vn","fe.edu.vn","gmail.com","gmail.com.vn"],
-
+    domain: ["fpt.edu.vn","gmail.com","gmail.com.vn"],
 }

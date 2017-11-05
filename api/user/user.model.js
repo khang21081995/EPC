@@ -25,7 +25,7 @@ var user = new Schema({
         type: String,
         require: true,
         // uppercase: true,
-        default:"Người Quản Lý",
+        default:"",
         trim:true
     },
     role: {
@@ -38,13 +38,20 @@ var user = new Schema({
         lowercase: true,
         require: true,
         trim:true
-
     },
-    isBlock: {//true is the same as:  user is existed but have been block by admin and can' login to the system
+    isBlock: {//true is the same as:  user is existed but have been block by admin and can't login to the system
         type: Boolean,
         default: false,
         require: true
     },
+    createdAt : { type: Date, required: true, default: Date.now },
+    joinTime : {type: Date,required:true, default: Date.now},
+    img : {type:String,default:""},
+    about:{type:String,default:""},
+    updatedAt : { type: Date, required: false},
+    responsibility: {type:String,default:"Thành viên"},
+    dob: {type:Date},
+    gender: {type:Boolean,default:true}
     // nodes:[{type: Number, ref: "Node"}]
 });
 
@@ -52,9 +59,20 @@ var user = new Schema({
 
 user.pre('save', function (next) {
     // Handle new user update role
+
     if (config.domain.indexOf(this.username.toLowerCase().trim().split("@")[1]) >= 0) {//validate domain is accepted}
         // this.name = this.username.split("@")[0];
-        return next();
+       if(this.name){
+           var temp = this.name.split(" ");
+           this.name = "";
+           var that = this;
+           temp.forEach(function (t) {
+               t=t.substring(0,1).toUpperCase()+t.substring(1,t.length).toLowerCase();
+               that.name+=t+" ";
+           });
+           this.name = this.name.trim();
+       }
+       return next();
     } else return next(new Error(messages.domain_err));
 
 });

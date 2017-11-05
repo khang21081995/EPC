@@ -5,35 +5,52 @@
 
 var User = require("./user.model");
 var messages = require("./user.message.json").messages;
+var authRole = require("../auth/auth.config").userRoles;
 // var logController = require("../log/log.controller");
 // var logger = require('winston');
 var util = require('../util');
 module.exports = {
     addUser: function (req, res) {
-        var username, role,fullName;
-        if ((username = req.body.username) && (role = req.body.role)) {
-            username = username.toLowerCase().trim();
-            role = role.toLowerCase().trim();
-            if( req.body.name){
-               fullName = req.body.name;
-            }
-            if (req.user.isBlock) {
-                res.json({status: false, message: messages.block_message});
-            } else if (util.CompareRole1IsSmallerThanRole2(req.user.role, role)) {
+        var addingUser = {
+            username: req.body.username,
+            role: req.body.role,
+            name: req.body.name || "",
+            gender: req.body.gender || true,
+            joinTime: req.body.joinTime,
+            img: req.body.img || "",
+            dob: req.body.dob,
+            responsibility: req.body.responsibility || "Thành viên",
+            about: req.body.about || ""
+        };
+        console.log(addingUser.username);
+        if (!addingUser.username || !addingUser.role) {
+            res.json({status: false, message: messages.empty_info_validate});
+        } else {
+            addingUser.username = addingUser.username.toLowerCase().trim();
+            addingUser.role = addingUser.role.toLowerCase().trim();
+            if (util.CompareRole1IsSmallerThanRole2(req.user.role, role) || authRole.indexOf(addingUser.role) < 0) {
                 //neu role cua nguoi add ma nho hon role duoc add thi khong duoc phep
                 res.json({status: false, message: messages.authority_message});
-
-            } else {
-                User.findOne({username: username}).exec(function (err, data) {
+            }
+            else {
+                User.findOne({username: addingUser.username}).exec(function (err, data) {
                     if (data) {
                         res.json({status: false, message: messages.username_existed});
                     } else {
+                        if (!addingUser.joinTime instanceof Date || !addingUser.dob instanceof Date) {
+                            try {
+                                addingUser.joinTime = new Date(addingUser.joinTime);
+                            } catch (err) {
+                                addingUser.joinTime = Date.now;
+                            }
 
-                        var newUser = new User({
-                            username: username,
-                            role: role,
-                            name:fullName
-                        });
+                            try {
+                                addingUser.dob = new Date(addingUser.dob);
+                            } catch (err) {
+                                addingUser.dob = "";
+                            }
+                        }
+                        var newUser = new User(addingUser);
                         newUser.validate(function (err) {
                             if (err) {
                                 console.log(String(err));
@@ -53,13 +70,10 @@ module.exports = {
                             }
                         })
                     }
-                });
+                })
             }
-        } else {
-            res.json({status: false, message: messages.empty_info_validate});
         }
     },
-
 
     blockUser: function (req, res) {
         var username;
@@ -124,6 +138,20 @@ module.exports = {
 
         }
 
+    },
+    editUser:function (req,res) {
+        var editingUser = {
+            username: req.body.username,
+            role: req.body.role,
+            name: req.body.name,
+            gender: req.body.gender,
+            joinTime: req.body.joinTime,
+            img: req.body.img ,
+            dob: req.body.dob,
+            updateTime: Date.now,
+            responsibility: req.body.responsibility,
+            about: req.body.about
+        };
     },
     // editRole: function (req, res) {//
     //     var username, role;

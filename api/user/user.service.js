@@ -4,7 +4,7 @@
 'use strict';
 
 var compose = require('composable-middleware');
-var User = require("./user.model")
+var User = require("./user.model");
 var messages = require("./user.message.json").messages;
 module.exports = {
     checkAcceptAble: function () {
@@ -19,7 +19,7 @@ module.exports = {
                         } else {
                             //tai khoan bi khoa khong con co quyen thuc hien hanh dong nua.
                             req.session.destroy();
-                            res.json({status: false, message: messages.block_message});
+                            res.status(403).send(messages.block_message);
                         }
                     })
                 } else if (req.user.email) {
@@ -30,7 +30,7 @@ module.exports = {
                         } else {
                             //tai khoan bi khoa khong con co quyen thuc hien hanh dong nua.
                             req.session.destroy();
-                            res.json({status: false, message: messages.block_message});
+                            res.status(403).send(messages.block_message);
                         }
                     })
                 } else {
