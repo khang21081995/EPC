@@ -61,7 +61,7 @@ html {
 }
 
 .bg .content a:hover i {
-    border-right: 1px solid #ffffff;
+    border-right: 1px solid #e8e8e8;
 }
 
 .bg:before {
@@ -120,6 +120,7 @@ html {
 .bg .header-topbar .container .pull-right .dropdown-menu>li>a:hover {
     color: #00ff83;
     background-color: transparent;
+    outline: none;
 }
 
 .bg .header-topbar .container>ul>li>a {
@@ -143,6 +144,7 @@ html {
     color: #00ff83;
     text-decoration: none;
     transition: 0.8s;
+    outline: none;
 }
 
 .bg .header-topbar ul>li>span.rot {
