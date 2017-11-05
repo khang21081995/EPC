@@ -20,8 +20,7 @@ module.exports = function (User) {
         done(null, obj);
     });
 
-    passport.use(new GoogleStrategy(
-        configGoogleServer,
+    passport.use(new GoogleStrategy(configGoogleServer,
         function (accessToken, refreshToken, profile, done) {
             // console.log('id : ' + profile.id);
             // console.log('name :' + profile.displayName);

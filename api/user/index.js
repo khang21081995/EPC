@@ -13,9 +13,9 @@ var router = express.Router();
 
 /***************************** api/user  *****************************/
 
-router.post("/block", authService.hasRole(roles.userRoles[2]), userService.checkAcceptAble(), controller.blockUser);// need manager roles
-router.post("/unblock", authService.hasRole(roles.userRoles[2]), userService.checkAcceptAble(), controller.unBlockUser);// need manager roles
-router.post("/adduser", authService.hasRole(roles.userRoles[2]), userService.checkAcceptAble(), controller.addUser);//need manager roles
+router.put("/block", authService.hasRole(roles.userRoles[1]), userService.checkAcceptAble(), controller.blockUser);// need manager roles
+router.put("/unblock", authService.hasRole(roles.userRoles[1]), userService.checkAcceptAble(), controller.unBlockUser);// need manager roles
+router.post("/adduser", authService.hasRole(roles.userRoles[1]), userService.checkAcceptAble(), controller.addUser);//need manager roles
 router.post("/addusertest", controller.addUser);//need manager roles
 // router.post("/editrole", authService.hasRole(roles.userRoles[1]), userService.checkAcceptAble(), controller.editRole);//need manager roles
 

@@ -2,7 +2,7 @@
   "messages": {
     "domain_err": "Email có tên miền không hợp lệ!",
     "block_message": "Tài khoản của bạn đã bị khoá",
-    "authority_message": "Tài khoản của bạn không đủ quyền truy cập",
+    "authority_message": "Quyền người dùng không phù hợp",
     "username_existed": "Tài khoản đã tồn tại!",
     "username_not_existed": "Tài khoản không tồn tại! ",
     "add_user_status": {
