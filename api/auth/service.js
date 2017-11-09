@@ -26,11 +26,12 @@ module.exports = {
     },
     // Simple route middleware to ensure user is authenticated.
     ensureAuthenticated: function (req, res, next) {
-        // console.log(req.isAuthenticated());
+        console.log(req.isAuthenticated());
         if (req.isAuthenticated()) {
             return next();
         } else
         // res.json({status: false, message: "You have not logged in !!!"});
+            console.log("Chua dang nhap")
             res.redirect("/");
     },
 

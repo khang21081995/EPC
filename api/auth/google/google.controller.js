@@ -14,7 +14,7 @@ module.exports = {
         //
         // if (req.user._json.domain && config.DOMAIN.toLowerCase().includes(req.user._json.domain.toLowerCase())) {
 
-        // console.log(req.user.role);
+        console.log(req.user.role);
         if (req.user && req.user.role) {
             if (req.user.isBlock) {
                 require('./google.controller').logout(req, res);
@@ -27,6 +27,7 @@ module.exports = {
         }
     },
     loginFail: function (req, res) {
+        console.log("Fail")
         res.redirect("/");
     }
 }

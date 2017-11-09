@@ -74,7 +74,6 @@ module.exports = {
             }
         }
     },
-
     blockUser: function (req, res) {
         var username;
         if (username = req.body.username) {
@@ -152,6 +151,11 @@ module.exports = {
             responsibility: req.body.responsibility,
             about: req.body.about
         };
+
+
+
+
+
     },
     // editRole: function (req, res) {//
     //     var username, role;

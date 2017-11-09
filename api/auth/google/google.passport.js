@@ -31,7 +31,7 @@ module.exports = function (User) {
                         // console.log(data)
                         if (data) {
                             // console.log(profile);
-                            profile.role = data.role;
+                            profile.role    = data.role;
                             profile.isBlock = data.isBlock;
                             if(!data.name || data.name === ""){
                                 profile.name = profile.displayName;
@@ -42,7 +42,7 @@ module.exports = function (User) {
                             }
 
                             if(flag){
-                                data.updatedAt = Date.now;
+                                data.updatedAt = Date.now();
                                 data.save(function (err, newData) {
                                     if (err) {
                                         logger.error(err);

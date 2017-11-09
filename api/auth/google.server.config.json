@@ -2,6 +2,6 @@
   "google": {
     "clientID": "702043415536-15n53o6tjethc0ks400h26anrjnban26.apps.googleusercontent.com",
     "clientSecret": "ssr2WnO552pEAq650erWUo1n",
-    "callbackURL": "https://tecaepc.herokuapp.com//api/auth/google/callback"
+    "callbackURL": "http://quangkhang.com:3000/api/auth/google/callback"
   }
 }

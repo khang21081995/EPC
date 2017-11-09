@@ -21,7 +21,10 @@ var db_username = require("./config.json").MONGO_DATABASE_USERNAME;
 var db_password = require("./config.json").MONGO_DATABASE_PASSWORD;
 var db_url = require("./config.json").MONGO_DATABASE_URL;
 var connection_string = "mongodb://" + db_username + ":" + db_password + db_url;
-mongoose.connect(connection_string);
+mongoose.connect(connection_string, {
+    useMongoClient: true,
+    /* other options */
+});
 //mongoose.connect('mongodb://localhost/DBNAME');
 
 var db = mongoose.connection;
@@ -36,14 +39,14 @@ app.use(cookieParser(require("./config.json").APP_SECRET_KEY, {maxAge: 60 * 60 *
 app.use(session({
     secret: require("./config.json").APP_SECRET_KEY,
     name: 'KhangPQ',
-    store: new RedisStore({
-        host: require("./config.json").REDIS_HOST,
-        port: require("./config.json").REDIS_PORT
-    }),
+    // store: new RedisStore({
+    //     host: require("./config.json").REDIS_HOST,
+    //     port: require("./config.json").REDIS_PORT
+    // }),
     cookie: {
         maxAge: 60 * 60 * 1000 * 24//1 day
     },
-    // store: new MongoStore({mongooseConnection: mongoose.connection, clear_interval: 3600}),// Store session
+    store: new MongoStore({mongooseConnection: mongoose.connection, clear_interval: 3600}),// Store session
     proxy: true,
     resave: true,
     saveUninitialized: true,
